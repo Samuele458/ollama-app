@@ -40,7 +40,8 @@ void setModel(BuildContext context, Function setState) {
         models.add(list.models![i].model!.split(":")[0]);
         modelsReal.add(list.models![i].model!);
         modal.add((list.models![i].details!.families ?? []).contains("clip") || 
-              (list.models![i].details!.families ?? []).contains("gemma3"));
+              ((list.models![i].details!.families ?? []).contains("gemma3") && 
+               list.models![i].details!.parameter_size != "999.89M"));
       }
       addIndex = models.length;
       // ignore: use_build_context_synchronously
@@ -516,7 +517,8 @@ void addModel(BuildContext context, Function setState) async {
         if (element.model == model) {
           exists = true;
           multimodal = (element.details!.families ?? []).contains("clip") || 
-                      (element.details!.families ?? []).contains("gemma3");
+                      ((element.details!.families ?? []).contains("gemma3") && 
+                       element.details!.parameter_size != "999.89M");
         }
       }
       if (!exists) {
